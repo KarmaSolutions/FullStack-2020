@@ -47,7 +47,6 @@ app.post("/bank/user", (req,res) => {
     const accounts = getAccountList();
     const newId = createUserId();
 
-    console.log(req.body);
     const account = {
         name: req.body.name,
         password: req.body.password,
@@ -79,10 +78,10 @@ app.get("/bank/:id/balance", (req, res) => {
 app.put("/bank/:user_id/withdraw", (req, res) => {
     const accounts = getAccountList();
     const userId = parseInt(req.params.user_id, 10);
-    let account = {};
+    let account = accounts.find((a) => a.id === userId);
     // console.log(req.body);
     // console.log(req.params.user_id);
-    if (account = accounts.find((a) => a.id === userId)) {
+    if (account) {
         if (account.password === req.body.password) {
             if (account.balance >= req.body.amount) {
                 account.balance -= req.body.amount;
@@ -107,10 +106,10 @@ app.put("/bank/:user_id/withdraw", (req, res) => {
 app.put("/bank/:user_id/deposit", (req, res) => {
     const accounts = getAccountList();
     const userId = parseInt(req.params.user_id, 10);
-    let account = {};
+    let account = accounts.find((a) => a.id === userId);
     // console.log(req.body);
     // console.log(req.params.user_id);
-    if (account = accounts.find((a) => a.id === userId)) {
+    if (account) {
         if (account.password === req.body.password) {
             account.balance += req.body.amount;
 
