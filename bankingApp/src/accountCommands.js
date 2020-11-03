@@ -34,6 +34,23 @@ const addAccount = (name, password, id, balance) => {
     });
 };
 
+const closeAccount = () => {
+    const accounts = getAccountList();
+    const userId = parseInt(readline.question("Please give the ID of the " +
+    "account you want to close: "));
+
+    const newAccounts = accounts.filter((acc) => acc.id !== userId);
+    const jsonString = JSON.stringify(newAccounts);
+    fs.writeFileSync("./accounts.json", jsonString, err => {
+        if (err) {
+            console.log("Error writing file", err);
+        } else {
+            console.log("Successfully wrote file");
+        }
+    });
+    console.log(`Account ${userId} successfully closed.`);
+};
+
 const listAccounts = () => {
     const accounts = getAccountList();
     console.log("------------------");
@@ -206,4 +223,5 @@ export {
     modifyAccount,
     logIn,
     logOut,
+    closeAccount,
 };

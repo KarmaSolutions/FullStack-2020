@@ -2,11 +2,13 @@ import readline from "readline-sync";
 import * as fs from "fs";
 import {
     createAccount,
+    addAccount,
     listAccounts,
     doesAccountExist,
     modifyAccount,
     logIn,
     logOut,
+    closeAccount,
 } from "./accountCommands.js";
 
 import {
@@ -27,11 +29,11 @@ const printHelp = () => {
     "------------------------------------------------------------------------------------- \n\ " +
     "Accounts \n\ " +
     "create_account -- > Opens dialog for creating an account. \n\ " +
-    // "close_account -- > Opens a dialog for closing an account. \n\ " + 
+    "close_account -- > Opens a dialog for closing an account. \n\ " + 
     "modify_account -- > Opens a dialog for modifying an account. \n\ " +
     "does_account_exist -- > Opens a dialog for checking if the account exists. \n\ " +
      "log_in -- > Opens a dialog for logging in. \n\ " +
-     "logout -- > Opens a dialog for logging out. \n\ " +
+     "log_out -- > Opens a dialog for logging out. \n\ " +
     "------------------------------------------------------------------------------------- \n\ " +
     "Funds \n\ " +
     "withdraw_funds -- > Opens a dialog for withdrawing funds. \n\ " +
@@ -44,7 +46,6 @@ const printHelp = () => {
      "accept_fund_request -- > Opens a dialog for accepting a fund request.");
 };
 
-listAccounts();
 while (true) {
     console.log("-------------------------------------------------------");
     const input = readline.question("Enter a command. (Type help to see a list of commands.)");
@@ -74,6 +75,8 @@ while (true) {
         listFundRequests(loggedIn);
     } else if (input === "accept_fund_request") {
         acceptFundRequests(loggedIn);
+    } else if (input === "close_account") {
+        closeAccount();
     } else {
         console.log(`${input} isn't a valid command. Please try again.`)
     }
