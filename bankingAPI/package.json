@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -37,10 +38,12 @@
         "warn",
         "ignorePackages"
       ],
-      "no-console": ["off"],
+      "no-console": [
+        "off"
+      ],
       "linebreak-style": [
         "error",
-         "windows"
+        "windows"
       ]
     }
   },
@@ -49,6 +52,7 @@
     "eslint": "^7.12.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11"
   }
 }
