@@ -18,7 +18,7 @@ connectMongoose();
 app.use(express.json());
 app.use("/bank/", accountRouter);
 
-// Tätä käytetään demovaiheessa, voi olla erittäin hyödyllinen debuggausvaiheessa.
+// Tätä käytetään demovaiheessa, voi olla erittäin hyödyllinen debuggaamisessa.
 app.use((req, res, next) => {
     console.log(`METHOD: ${req.method}`);
     console.log(`PATH: ${req.path}`);
