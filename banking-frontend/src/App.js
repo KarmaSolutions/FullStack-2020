@@ -135,8 +135,8 @@ function App() {
               <Link to="/deposit" onClick={() => getData(route)}> Deposit Funds </Link>
               <Link to="/withdraw" onClick={() => getData(route)}> Withdraw Funds </Link>
               <Link to="/allusers" onClick={() => getData("allusers")}> List users </Link>
-              <Link to="/newuser" onClick={() => getData(route)}>Create User</Link>
-              <Link to="/edituser" onClick={() => getData(route)}>Edit User</Link>
+              <Link to="/newuser" onClick={() => {getData(route); setUserModifyingSuccessful(undefined);}}>Create User</Link>
+              <Link to="/edituser" onClick={() => {getData(route); setUserModifyingSuccessful(undefined);}}>Edit User</Link>
             </nav>
             {!window.location.pathname.includes('/allusers') ? <AccountInfoComponent
               route = {route}

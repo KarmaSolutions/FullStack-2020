@@ -20,16 +20,20 @@ export const addNewAccount = async (req, res) => {
         balance,
         fund_requests,
     } = req.body;
-    const account = {
-        name,
-        password,
-        id: userId,
-        balance: parseInt(balance, 10),
-        fund_requests,
-    };
-    const accountData = new accountModel(account);
-    await accountData.save();
-    res.json(account);
+    if (name && password && balance) {
+        const account = {
+            name,
+            password,
+            id: userId,
+            balance: parseInt(balance, 10),
+            fund_requests,
+        };
+        const accountData = new accountModel(account);
+        await accountData.save();
+        res.json(account);
+    } else {
+        res.status(400).json({ error: "Invalid parameters." });
+    }
 };
 
 export const getAccountBalance = async (req, res) => {
@@ -67,7 +71,7 @@ export const editUser = async (req, res) => {
                 { new: true });
             res.json(newAccount);
         } else {
-            res.json({
+            res.status(400).json({
                 account,
                 error: "Invalid parameters.",
             });
