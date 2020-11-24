@@ -43,7 +43,7 @@ const updateAccountList = (newAccounts) => {
 };
 
 // Create a new user on the Banking CLI
-app.post("/bank/user", (req,res) => {
+app.post("/bank/user", (req, res) => {
     const accounts = getAccountList();
     const newId = createUserId();
 
@@ -57,7 +57,7 @@ app.post("/bank/user", (req,res) => {
 
     const newAccounts = [...accounts, account];
     if (updateAccountList(newAccounts)) {
-        res.send(`Account created successfully. Welcome ${req.body.name}! `);
+        res.send(account);
     } else {
         res.send("Error creating account:" + res.error);
     }
@@ -68,9 +68,9 @@ app.get("/bank/:id/balance", (req, res) => {
     const accounts = getAccountList();
     const account = accounts.find((user) => user.id === parseInt(req.params.id, 10));
     if (account) {
-        res.send(`The account balance of ID ${req.params.id}: ${account.balance} `);
+        res.json(account);
     } else {
-        res.send(`User with the ID ${req.params.id} can't be found.`);
+        res.json({ error: `User with the ID ${req.params.id} can't be found.` });
     }
 });
 
@@ -82,20 +82,15 @@ app.put("/bank/:user_id/withdraw", (req, res) => {
     // console.log(req.body);
     // console.log(req.params.user_id);
     if (account) {
-        if (account.password === req.body.password) {
-            if (account.balance >= req.body.amount) {
-                account.balance -= req.body.amount;
+        if (account.balance >= req.body.amount) {
+            account.balance -= req.body.amount;
 
-                let newAccounts = accounts.filter((acc) => acc.id !== userId);
-                newAccounts = [...newAccounts, account];
-                updateAccountList(newAccounts);
-                res.json(`You withdrew ${req.body.amount}€ successfully! ` +
-                `You now have ${account.balance}€ left.`);
-            } else {
-                res.json("You don't have enough money for this transaction.");
-            }
+            let newAccounts = accounts.filter((acc) => acc.id !== userId);
+            newAccounts = [...newAccounts, account];
+            updateAccountList(newAccounts);
+            res.json(account);
         } else {
-            res.json("Wrong password.");
+            res.json("You don't have enough money for this transaction.");
         }
     } else {
         res.json("No such ID found.");
@@ -110,17 +105,12 @@ app.put("/bank/:user_id/deposit", (req, res) => {
     // console.log(req.body);
     // console.log(req.params.user_id);
     if (account) {
-        if (account.password === req.body.password) {
-            account.balance += req.body.amount;
+        account.balance += req.body.amount;
 
-            let newAccounts = accounts.filter((acc) => acc.id !== userId);
-            newAccounts = [...newAccounts, account];
-            updateAccountList(newAccounts);
-            res.json(`You deposited ${req.body.amount} successfully! ` +
-            `You now have ${account.balance}€ left.`);
-        } else {
-            res.json("Wrong password.");
-        }
+        let newAccounts = accounts.filter((acc) => acc.id !== userId);
+        newAccounts = [...newAccounts, account];
+        updateAccountList(newAccounts);
+        res.json(account);
     } else {
         res.json("No such ID found.");
     }

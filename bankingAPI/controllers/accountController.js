@@ -24,19 +24,18 @@ export const addNewAccount = async (req, res) => {
         name,
         password,
         id: userId,
-        balance,
+        balance: parseInt(balance, 10),
         fund_requests,
     };
     const accountData = new accountModel(account);
     await accountData.save();
-    res.json(`Welcome ${account.name}! ` +
-    `Your account has been created with a balance of ${account.balance}€.`);
+    res.json(account);
 };
 
 export const getAccountBalance = async (req, res) => {
     const account = await accountModel.findOne({ id: req.params.id });
     if (account) {
-        res.json(`The user with ID ${req.params.id} has a balance of ${account.balance}€.`);
+        res.json(account);
     } else {
         res.status(404).end();
     }
@@ -51,26 +50,50 @@ export const getAllAccounts = async (req, res) => {
     }
 };
 
-export const withdrawFunds = async (req, res) => {
+export const editUser = async (req, res) => {
     const accountInfo = {
         id: req.params.id,
-        amount: parseInt(req.params.amount, 10),
+        name: req.body.name,
         password: req.body.password,
     };
     const account = await accountModel.findOne({ id: accountInfo.id });
     if (account) {
-        if (accountInfo.password === account.password) {
-            if (account.balance >= accountInfo.amount) {
-                const newAccount = await accountModel.findOneAndUpdate({ id: accountInfo.id },
-                    { balance: (account.balance - accountInfo.amount) },
-                    { new: true });
-                res.json(`Successfully withdrew ${accountInfo.amount}€! ` +
-                `You now have ${newAccount.balance}€ left.`);
-            } else {
-                res.json("You don't have enough money for this transaction.");
-            }
+        if (accountInfo.name && accountInfo.password) {
+            const newAccount = await accountModel.findOneAndUpdate({ id: accountInfo.id },
+                {
+                    name: accountInfo.name,
+                    password: accountInfo.password,
+                },
+                { new: true });
+            res.json(newAccount);
         } else {
-            res.json("Incorrect password.");
+            res.json({
+                account,
+                error: "Invalid parameters.",
+            });
+        }
+    } else {
+        res.json(`Account with the ID ${accountInfo.id} doesn't exist.`);
+    }
+};
+
+export const withdrawFunds = async (req, res) => {
+    const accountInfo = {
+        id: req.params.id,
+        amount: parseInt(req.body.amount, 10),
+    };
+    const account = await accountModel.findOne({ id: accountInfo.id });
+    if (account) {
+        if (account.balance >= accountInfo.amount) {
+            const newAccount = await accountModel.findOneAndUpdate({ id: accountInfo.id },
+                { balance: (account.balance - accountInfo.amount) },
+                { new: true });
+            res.json(newAccount);
+        } else {
+            res.json({
+                account,
+                error: "You don't have enough money for this transaction.",
+            });
         }
     } else {
         res.json(`Account with the ID ${accountInfo.id} doesn't exist.`);
@@ -80,20 +103,14 @@ export const withdrawFunds = async (req, res) => {
 export const depositFunds = async (req, res) => {
     const accountInfo = {
         id: req.params.id,
-        amount: parseInt(req.params.amount, 10),
-        password: req.body.password,
+        amount: parseInt(req.body.amount, 10),
     };
     const account = await accountModel.findOne({ id: accountInfo.id });
     if (account) {
-        if (accountInfo.password === account.password) {
-            const newAccount = await accountModel.findOneAndUpdate({ id: accountInfo.id },
-                { balance: (account.balance + accountInfo.amount) },
-                { new: true });
-            res.json(`Successfully deposited ${accountInfo.amount}€! ` +
-            `You now have ${newAccount.balance}€ on your account.`);
-        } else {
-            res.json("Incorrect password.");
-        }
+        const newAccount = await accountModel.findOneAndUpdate({ id: accountInfo.id },
+            { balance: (account.balance + accountInfo.amount) },
+            { new: true });
+        res.json(newAccount);
     } else {
         res.json(`Account with the ID ${accountInfo.id} doesn't exist.`);
     }

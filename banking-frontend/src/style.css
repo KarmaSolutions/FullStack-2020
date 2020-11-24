@@ -1,0 +1,153 @@
+body {
+  font-family: "helvetica";
+  min-height: 100vh;
+  text-align: center;
+  background-image: url("./images/pexels-ricardo-esquivel-1662159.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+header {
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 20px;
+  max-width: 1136px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 3px #000;
+}
+
+nav {
+  font-weight: 700;
+}
+
+header a {
+  background-color: #fff;
+  padding: 5px;
+  margin: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s;
+  border: 2px solid #000;
+  border-radius: 3px;
+}
+
+header a:hover {
+  color: teal;
+  border-color: teal;
+}
+
+.account-info {
+  margin-top: 20px;
+}
+
+main {
+  background-color: #fff;
+  max-width: 98%;
+  padding-top: 10px;
+  height: auto;
+  box-shadow: 0px 0px 3px #000;
+}
+
+h1 {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border-bottom: 3px double teal;
+  padding-bottom: 5px;
+  max-width: 99%;
+}
+
+.main-container {
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+}
+
+.modify-user-info-container {
+  min-height: 150px;
+}
+
+.user-info {
+  display: inline-block;
+  width: 48%;
+  min-height: 150px;
+  box-shadow: 0px 0px 2px darkslategrey;
+  margin: 10px;
+}
+
+.user-balance {
+  font-size: 18px;
+  color: green;
+}
+
+.user-info-single {
+  min-height: 150px;
+  border-bottom: 3px double teal;
+}
+
+.myButton {
+  font-size: 15px;
+  font-weight: 700;
+  min-height: 25px;
+  text-transform: uppercase;
+  background-color: #958336;
+  color: #fff;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.myButton:hover {
+  background-color: #af9a3a;
+  cursor: pointer;
+}
+
+.id-input {
+  width: 40px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.amount-input {
+  width: 50px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.form-input {
+  width: 150px;
+  font-size: 16px;
+  margin: 10px;
+  transition: 0.2s;
+}
+
+.form-input:hover {
+  box-shadow: 0px 0px 3px darkslategrey;
+}
+
+.list-item {
+  border: 2px solid #dacb8d;
+  width: 32%;
+  float: left;
+  text-align: center;
+  margin: 0px 5px 20px 5px;
+  min-height: 140px;
+  background-color: #fff;
+}
+
+.list-item-title {
+  color: 000;
+  margin: 0;
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 2px solid #dacb8d;
+  min-height: 50px;
+}
+
+.post-body {
+  margin: 0;
+  padding: 0px 5px;
+}
