@@ -5,14 +5,16 @@ import {
     getAllAccounts,
     withdrawFunds,
     depositFunds,
+    editUser,
 } from "../controllers/accountController.js";
 
 const router = express.Router();
 
 router.post("/new", addNewAccount);
-router.put("/:id/withdraw", withdrawFunds);
-router.put("/:id/deposit", depositFunds);
-router.get("/:id/balance", getAccountBalance);
-router.get("/all", getAllAccounts);
+router.put("/withdraw/:id", withdrawFunds);
+router.put("/deposit/:id", depositFunds);
+router.put("/user/:id/edit", editUser);
+router.get("/user/:id", getAccountBalance);
+router.get("/allusers", getAllAccounts);
 
 export default router;
