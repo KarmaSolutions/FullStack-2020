@@ -1,6 +1,6 @@
-import * as fs from "fs";
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import accountRouter from "../routes/accountRouter.js"; // Default exportti
 
 const app = express();
@@ -16,9 +16,10 @@ const connectMongoose = async () => {
 
 connectMongoose();
 app.use(express.json());
+app.use(cors());
 app.use("/bank/", accountRouter);
 
-// Tätä käytetään demovaiheessa, voi olla erittäin hyödyllinen debuggausvaiheessa.
+// Tätä käytetään demovaiheessa, voi olla erittäin hyödyllinen debuggaamisessa.
 app.use((req, res, next) => {
     console.log(`METHOD: ${req.method}`);
     console.log(`PATH: ${req.path}`);
