@@ -13,7 +13,7 @@ const UserInfo = (props) => {
                     <h2>{user.account.id}. {user.account.name}</h2>
                     <p className="user-balance">{user.account.balance}€</p>
                     <p>Fund requests: {user.account.fund_requests}</p>
-                <p style={{color:"red"}}>You don't have enough money for this transaction.</p>
+                <p style={{color:"red"}}>{user.error}</p>
                 </div>
         )
     }

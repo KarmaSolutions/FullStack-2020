@@ -4,8 +4,7 @@ body {
   text-align: center;
   background-image: url("./images/pexels-ricardo-esquivel-1662159.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-position: fixed;
   max-width: 1200px;
   margin: auto;
 }
